@@ -8,9 +8,9 @@ import cv2
 
 # Inicializamos la cámara con resolución 640x480
 camera = PiCamera()
-camera.resolution = (640, 480)
+camera.resolution = (480, 350)
 camera.framerate = 32
-rawCapture = PiRGBArray(camera, size=(640, 480))
+rawCapture = PiRGBArray(camera, size=(480, 350))
 
 # Tiempo de espera para que la cámara arranque
 time.sleep(30)
