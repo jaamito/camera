@@ -55,12 +55,10 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 	for c in contornos:
 		b = b + 1
 		print "+ de 500 :"+str(b)
-		time.sleep(5)
 		# Eliminamos los contornos más pequeños
 		if cv2.contourArea(c) < 500:
 			a = a + 1
 			print "- de 500 :"+str(a)
-			time.sleep(5)
 			continue
 
 		# Obtenemos el bounds del contorno, el rectángulo mayor que engloba al contorno
