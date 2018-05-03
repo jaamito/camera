@@ -18,6 +18,8 @@ time.sleep(40)
 # Inicializamos el primer frame a vacío.
 # Nos servirá para obtener el fondo
 fondo = None
+a = 0
+b = 0
 
 # Capturamos frame a frame de la cámara
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
@@ -49,16 +51,14 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
 	# Buscamos contorno en la imagen
 	contornos, hierarchy = cv2.findContours(contornosimg,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
-	a = 0
-	b = 0
 	# Recorremos todos los contornos encontrados
 	for c in contornos:
 		b = b + 1
-		print b
+		print "+ de 500 :"+b
 		# Eliminamos los contornos más pequeños
 		if cv2.contourArea(c) < 500:
 			a = a + 1
-			print a
+			print "+ de 500 :"+a
 			continue
 
 		# Obtenemos el bounds del contorno, el rectángulo mayor que engloba al contorno
