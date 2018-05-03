@@ -8,12 +8,12 @@ import cv2
 
 # Inicializamos la cámara con resolución 640x480
 camera = PiCamera()
-camera.resolution = (640, 480)
+camera.resolution = (480, 350)
 camera.framerate = 32
-rawCapture = PiRGBArray(camera, size=(640, 480))
+rawCapture = PiRGBArray(camera, size=(480, 350))
 
 # Tiempo de espera para que la cámara arranque
-time.sleep(0.5)
+time.sleep(30)
 
 # Inicializamos el primer frame a vacío.
 # Nos servirá para obtener el fondo
@@ -53,7 +53,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 	# Recorremos todos los contornos encontrados
 	for c in contornos:
 		# Eliminamos los contornos más pequeños
-		if cv2.contourArea(c) < 500:
+		if cv2.contourArea(c) < 800:
 			continue
 
 		# Obtenemos el bounds del contorno, el rectángulo mayor que engloba al contorno
@@ -64,9 +64,9 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         
 	# Mostramos las diferentes capturas
 	cv2.imshow("Imagen Movimiento", image)
-	cv2.imshow("Umbral", umbral)
-	cv2.imshow("Resta", resta)
-	cv2.imshow("Contornos", contornosimg)
+	#cv2.imshow("Umbral", umbral)
+	#cv2.imshow("Resta", resta)
+	#cv2.imshow("Contornos", contornosimg)
 	key = cv2.waitKey(1) & 0xFF
 
 	# Reseteamos el archivo raw para la siguiente captura

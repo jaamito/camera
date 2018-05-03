@@ -33,6 +33,7 @@ line_down   = int(3*(h/5))
 up_limit =   int(1*(h/5))
 down_limit = int(4*(h/5))
 
+<<<<<<< HEAD
 print "Red line y:",str(line_down)
 print "Blue line y:", str(line_up)
 line_down_color = (255,0,0)
@@ -45,6 +46,67 @@ pt3 =  [0, line_up];
 pt4 =  [w, line_up];
 pts_L2 = np.array([pt3,pt4], np.int32)
 pts_L2 = pts_L2.reshape((-1,1,2))
+=======
+# Inicializamos la cámara con resolución 640x480
+camera = PiCamera()
+camera.resolution = (320, 240)
+camera.framerate = 32
+rawCapture = PiRGBArray(camera, size=(320, 240))
+
+# Tiempo de espera para que la cámara arranque
+time.sleep(40)
+
+# Inicializamos el primer frame a vacío.
+# Nos servirá para obtener el fondo
+fondo = None
+a = 0
+b = 0
+
+# Capturamos frame a frame de la cámara
+for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
+	# Obtenemos el array en formato NumPy
+	image = frame.array
+
+	# Convertimos a escala de grises
+	gris = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+    # Aplicamos suavizado para eliminar ruido
+	gris = cv2.GaussianBlur(gris, (21, 21), 0)
+
+	# Si todavía no hemos obtenido el fondo, lo obtenemos
+	# Será el primer frame que obtengamos
+	if fondo is None:
+            fondo = gris
+
+    # Calculo de la diferencia entre el fondo y el frame actual
+	resta = cv2.absdiff(fondo, gris)
+ 
+	# Aplicamos un umbral
+	umbral = cv2.threshold(resta, 25, 255, cv2.THRESH_BINARY)[1]
+ 
+	# Dilatamos el umbral para tapar agujeros
+	umbral = cv2.dilate(umbral, None, iterations=2)
+
+    # Copiamos el umbral para detectar los contornos
+	contornosimg = umbral.copy()
+
+	# Buscamos contorno en la imagen
+	contornos, hierarchy = cv2.findContours(contornosimg,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
+	# Recorremos todos los contornos encontrados
+	for c in contornos:
+		b = b + 1
+		print "+ de 500 :"+str(b)
+		# Eliminamos los contornos más pequeños
+		if cv2.contourArea(c) < 500:
+			a = a + 1
+			print "- de 500 :"+str(a)
+			continue
+
+		# Obtenemos el bounds del contorno, el rectángulo mayor que engloba al contorno
+		(x, y, w, h) = cv2.boundingRect(c)
+		# Dibujamos el rectángulo del bounds
+		cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+>>>>>>> 8c177ccb6e6f02a575b7267dd58c91fa94a55ae0
 
 pt5 =  [0, up_limit];
 pt6 =  [w, up_limit];
@@ -169,6 +231,7 @@ while(cap.isOpened()):
 ##            print str(i.getX()), ',', str(i.getY())
         cv2.putText(frame, str(i.getId()),(i.getX(),i.getY()),font,0.3,i.getRGB(),1,cv2.LINE_AA)
         
+<<<<<<< HEAD
     #################
     #   IMAGANES    #
     #################
@@ -197,3 +260,18 @@ while(cap.isOpened()):
 #################
 cap.release()
 cv2.destroyAllWindows()
+=======
+	# Mostramos las diferentes capturas
+	cv2.imshow("Imagen Movimiento", image)
+	#cv2.imshow("Umbral", umbral)
+	#cv2.imshow("Resta", resta)
+	#cv2.imshow("Contornos", contornosimg)
+	key = cv2.waitKey(1) & 0xFF
+
+	# Reseteamos el archivo raw para la siguiente captura
+	rawCapture.truncate(0)
+
+	# Con la letra s salimos de la aplicación
+	if key == ord("s"):
+		break
+>>>>>>> 8c177ccb6e6f02a575b7267dd58c91fa94a55ae0
