@@ -56,7 +56,7 @@ pts_L4 = np.array([pt7,pt8], np.int32)
 pts_L4 = pts_L4.reshape((-1,1,2))
 
 #Substractor de fondo
-fgbg = cv2.bgsegm.createBackgroundSubtractorMOG(detectShadows = True)
+fgbg = cv2.bgsegm.createBackgroundSubtractorGMG(detectShadows = True)
 
 #Elementos estructurantes para filtros morfoogicos
 kernelOp = np.ones((3,3),np.uint8)
