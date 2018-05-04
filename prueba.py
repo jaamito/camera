@@ -7,12 +7,12 @@ import time
 import cv2
 
 # Inicializamos la cámara con resolución 640x480
-#camera = PiCamera()
-#camera.resolution = (480, 350)
-#camera.framerate = 32
-#rawCapture = PiRGBArray(camera, size=(480, 350))
-#camera=cv2.VideoCapture(0)
-#img=camera.read()
+camera = PiCamera()
+camera.resolution = (480, 350)
+camera.framerate = 32
+rawCapture = PiRGBArray(camera, size=(480, 350))
+camera=cv2.VideoCapture(0)
+img=camera.read()
 
 #cv2.namedwindow("camera", cv2.CV_WINDOW_AUTOSIZE)
 #cv2.imshow("camera",img)
