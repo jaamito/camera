@@ -11,13 +11,13 @@ import cv2
 #camera.resolution = (480, 350)
 #camera.framerate = 32
 #rawCapture = PiRGBArray(camera, size=(480, 350))
-camera=cv2.VideoCapture(0)
-img=camera.read()
+#camera=cv2.VideoCapture(0)
+#img=camera.read()
 
-cv2.namedwindow("camera", cv2.CV_WINDOW_AUTOSIZE)
-cv2.imshow("camera",img)
-cv2.waitKey(0)
-cv2.destroywindow("camera")
+#cv2.namedwindow("camera", cv2.CV_WINDOW_AUTOSIZE)
+#cv2.imshow("camera",img)
+#cv2.waitKey(0)
+#cv2.destroywindow("camera")
 
 # Tiempo de espera para que la cámara arranque
 time.sleep(30)
